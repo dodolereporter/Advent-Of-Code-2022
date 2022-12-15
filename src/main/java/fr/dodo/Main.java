@@ -28,6 +28,7 @@ public class Main {
 
         System.out.println("Lancement de la recherche du plus grand stock...");
         Integer r = 0;
+        Integer totalDesTrois = 0;
         while (r <= 2) {
             Integer n = 0;
             for (Integer total : listTotal) {
@@ -38,8 +39,9 @@ public class Main {
             listTotal.remove(n);
             System.out.println(r+1 + ". plus grand : " + n);
             r++;
+            totalDesTrois = totalDesTrois+n;
         }
-
+        System.out.println("Le total des 3 plus grandes quantitée de calories : " + totalDesTrois);
         System.out.println("-----------------------------------------------------------");
         System.out.println("Traitement Terminé");
         System.out.println("-----------------------------------------------------------");
