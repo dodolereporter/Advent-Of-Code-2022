@@ -1,1 +1,1 @@
-# Advent-Of-Code Day 1
+Advent of Code 2022 by Dodo Le Reporter
