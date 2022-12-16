@@ -3,47 +3,90 @@ package fr.dodo;
 import fr.dodo.Functions.ReadFileLineByLineUsingFiles;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Définition des Listes...");
-        List<String> listCal = ReadFileLineByLineUsingFiles.getCalorieLine(Main.class.getClassLoader().getResource("cal.txt").getPath().toString());
-        List<Integer> listTotal = new ArrayList<Integer>();
+        List<String> listCombinaison = ReadFileLineByLineUsingFiles.getCalorieLine(Main.class.getClassLoader().getResource("combinaison.txt").getPath().toString());
 
-        System.out.println("Lancement de la boucle de calcul...");
-        Integer i = 0;
-        for (String cal : listCal) {
-            if (cal.equals("")) {
-                listTotal.add(i);
-                i = 0;
+        // Pierre
+        Integer A = 1;
+        // Papier
+        Integer B = 2;
+        // Ciseaux
+        Integer C = 3;
+
+        // Pierre
+        Integer X = 1;
+        // Papier
+        Integer Y = 2;
+        // Ciseaux
+        Integer Z = 3;
+
+        Integer PREMIER = 0;
+        Integer DERNIER = 0;
+
+        System.out.println("Début du traitement des matchs...");
+        Integer total = 0;
+        Integer total2 = 0;
+        for (String combinaison : listCombinaison) {
+            if (combinaison.startsWith("A")) {
+                PREMIER = A;
+            } else if (combinaison.startsWith("B")) {
+                PREMIER = B;
+            } else if (combinaison.startsWith("C")) {
+                PREMIER = C;
+            }
+            if (combinaison.endsWith("X")) {
+                DERNIER = X;
+            } else if (combinaison.endsWith("Y")) {
+                DERNIER = Y;
+            } else if (combinaison.endsWith("Z")) {
+                DERNIER = Z;
+            }
+
+            Integer résultat = 0;
+            if (PREMIER == DERNIER) {
+                résultat = 3;
+            }else if (DERNIER == 1 && PREMIER == 3) {
+                résultat = 6;
+            } else if (DERNIER == 2 && PREMIER == 1) {
+                résultat = 6;
+            } else if (DERNIER == 3 && PREMIER == 2) {
+                résultat = 6;
             } else {
-                i = i + Integer.valueOf(cal);
+                résultat = 0;
             }
-        }
-        System.out.println("Calculs Terminés");
+            total = total + résultat + DERNIER;
 
-        System.out.println("Lancement de la recherche du plus grand stock...");
-        Integer r = 0;
-        Integer totalDesTrois = 0;
-        while (r <= 2) {
-            Integer n = 0;
-            for (Integer total : listTotal) {
-                if (total > n) {
-                    n = total;
-                }
+            if (DERNIER == 1 && PREMIER == 1) {
+                DERNIER = 3;
+                résultat = 0;
+            }else if (DERNIER == 1 && PREMIER == 2) {
+                DERNIER = 1;
+                résultat = 0;
+            } else if (DERNIER == 1 && PREMIER == 3) {
+                DERNIER = 2;
+                résultat = 0;
+            } else if (DERNIER == 2) {
+                DERNIER = PREMIER;
+                résultat = 3;
+            } else if (DERNIER == 3 && PREMIER == 1) {
+                DERNIER = 2;
+                résultat = 6;
+            } else if (DERNIER == 3 && PREMIER == 2) {
+                DERNIER = 3;
+                résultat = 6;
+            } else if (DERNIER == 3 && PREMIER == 3) {
+                DERNIER = 1;
+                résultat = 6;
             }
-            listTotal.remove(n);
-            System.out.println(r+1 + ". plus grand : " + n);
-            r++;
-            totalDesTrois = totalDesTrois+n;
+            total2 = total2 + résultat + DERNIER;
         }
-        System.out.println("Le total des 3 plus grandes quantitée de calories : " + totalDesTrois);
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("Traitement Terminé");
-        System.out.println("-----------------------------------------------------------");
+        System.out.println("------------------------------------------------");
+        System.out.println("Partie 1 : Le résultat de tout les score additionné est : " + total);
+        System.out.println("Partie 2 : Le résultat de tout les score additionné est : " + total2);
     }
 }
